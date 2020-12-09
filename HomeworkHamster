@@ -1,3 +1,4 @@
+
 /**
  * Beschreiben Sie hier die Klasse HomeworkHamster.
  * 
@@ -17,23 +18,24 @@ public class HomeworkHamster extends HomeworkHamsterGame{
         //paule.write("Ich weiß nicht wie :'(");
         // Helfe Paule dabei durch das Territorium zu laufen 
         // und alle Körner nachhause zu bringen
+        int countGrain = 0;
         for (int i = 0; i<5; i++){paule.move();}
-        paule.pickGrain();
+        countGrain = actionGrain(countGrain, "pick");
         turnRight();
         for (int i = 0; i<5; i++){paule.move();}
-        paule.pickGrain();
+        countGrain = actionGrain(countGrain, "pick");
         paule.turnLeft();
         paule.turnLeft();
         for (int i = 0; i<3; i++){paule.move();}
         paule.turnLeft();
         for (int i = 0; i<3; i++){paule.move();}
-        paule.pickGrain();
+        countGrain = actionGrain(countGrain, "pick");
         paule.turnLeft();
         paule.move();
         turnRight();
         paule.move();
         paule.move();
-        paule.pickGrain();
+        countGrain = actionGrain(countGrain, "pick");
         paule.turnLeft();
         paule.turnLeft();
         for (int i = 0; i<3; i++){paule.move();}
@@ -42,12 +44,28 @@ public class HomeworkHamster extends HomeworkHamsterGame{
         paule.move();
         turnRight();
         for (int i = 0; i<3; i++){paule.move();}
-        putAllGrain();      
+        countGrain = actionGrain(countGrain, "put all");      
     }
     public void turnRight(){
         for(int i = 1; i<=3; i++){paule.turnLeft();}
     }
     public void putAllGrain(){
         while(!paule.mouthEmpty()){paule.putGrain();}
+    }
+    public int actionGrain(int number, String action){
+        if(action == "put"){
+            paule.putGrain();
+            number--;
+        }
+        else if(action == "put all"){
+            putAllGrain();
+            number = 0;
+        }
+        else if(action == "pick"){
+            paule.pickGrain();
+            number++;
+        }
+        paule.write("Körner im Mund: " + number);
+        return number;
     }
 }
